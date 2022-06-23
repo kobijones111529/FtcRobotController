@@ -11,24 +11,27 @@
 
 // Custom definitions may go here
 
-// Include common definitions from above.
-apply from: '../build.common.gradle'
-apply from: '../build.dependencies.gradle'
+apply(from = "../build.common.gradle")
+apply(from = "../build.dependencies.gradle")
+
+plugins {
+    id("com.android.application")
+    kotlin("android")
+}
 
 android {
-
-
     androidResources {
-        noCompress 'tflite'
+        noCompress("tflite")
     }
+
     packagingOptions {
         jniLibs {
-            pickFirsts += ['**/*.so']
+            pickFirsts.add("**/*.so")
         }
     }
 }
 
 dependencies {
-    implementation project(':FtcRobotController')
-    annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
+    implementation(project(":FtcRobotController"))
+    annotationProcessor(files("lib/OpModeAnnotationProcessor.jar"))
 }
